@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="assets/css/pages.css">
 
   <style>
-    /* ===== STARTUP SCREEN ===== */
     .startup-screen {
       position: fixed;
       inset: 0;
@@ -50,7 +49,6 @@
       to { opacity: 0; pointer-events: none; }
     }
 
-    /* ===== OVERLAYS ===== */
     .overlay {
       position: fixed;
       inset: 0;
@@ -108,7 +106,6 @@
 
     .hidden { display: none; }
 
-    /* ===== TOP BAR RESOURCES BUTTON ===== */
     .top-left {
       display: flex;
       align-items: center;
@@ -133,101 +130,12 @@
     }
   </style>
 </head>
-<div class="custom-cursor" id="cursor"></div>
 
-<script>
-  const cursor = document.getElementById("cursor");
-
-  document.addEventListener("mousemove", (e) => {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-  });
-
-  document.addEventListener("mousedown", () => {
-    cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
-  });
-
-  document.addEventListener("mouseup", () => {
-    cursor.style.transform = "translate(-50%, -50%) scale(1)";
-  });
-
-  const interactive = document.querySelectorAll("a, button, .nav-card");
-
-  interactive.forEach(el => {
-    el.addEventListener("mouseenter", () => {
-      cursor.style.width = "28px";
-      cursor.style.height = "28px";
-      cursor.style.boxShadow = "0 0 20px #00ffff";
-    });
-    el.addEventListener("mouseleave", () => {
-      cursor.style.width = "18px";
-      cursor.style.height = "18px";
-      cursor.style.boxShadow = "0 0 12px #00ffffaa";
-    });
-  });
-</script>
-
-<script>
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resize);
-resize();
-
-let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
-
-document.addEventListener("mousemove", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-});
-
-const cursor = document.getElementById("cursor");
-
-document.addEventListener("mousedown", () => {
-  cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
-});
-
-document.addEventListener("mouseup", () => {
-  cursor.style.transform = "translate(-50%, -50%) scale(1)";
-});
-
-const spacing = 40;
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  for (let x = 0; x < canvas.width; x += spacing) {
-    for (let y = 0; y < canvas.height; y += spacing) {
-
-      const dx = mouse.x - x;
-      const dy = mouse.y - y;
-      const distance = Math.sqrt(dx*dx + dy*dy);
-
-      const maxDist = 200;
-      const intensity = Math.max(0, 1 - distance / maxDist);
-
-      const alpha = 0.08 + intensity * 0.7;
-
-      ctx.beginPath();
-      ctx.arc(x, y, 1.5 + intensity * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 255, 255, ${alpha})`;
-      ctx.fill();
-    }
-  }
-
-  requestAnimationFrame(draw);
-}
-
-draw();
-</script>
-  
 <body>
+
+  <!-- Background Layer -->
+  <canvas id="bgCanvas"></canvas>
+  <div class="custom-cursor" id="cursor"></div>
 
   <!-- STARTUP -->
   <div class="startup-screen" id="startupScreen">
@@ -235,31 +143,30 @@ draw();
     <div class="startup-sub">Loading the stuff</div>
   </div>
 
-  <!-- TERMS OF USE -->
+  <!-- TERMS -->
   <div class="overlay hidden" id="termsOverlay">
     <div class="box">
       <div class="box-title">Terms of Use</div>
       <div class="box-text">
 G.GUI Project  
-Last Updated: Febuary 13, 2025
+Last Updated: February 13, 2025
 
 1. Use at Your Own Responsibility  
-The G.GUI Project is an open-source project intended solely for collecting and organizing publicly available gaming websites. The creators and contributors are not responsible for any disciplinary actions, restrictions, or consequences that may result from your use of this service.
+The G.GUI Project is an open-source project intended solely for collecting and organizing publicly available gaming websites.
 
 2. Limitation of Liability  
-Under no circumstances shall the creators, maintainers, or contributors of the G.GUI Project be held liable for any issues, damages, or penalties arising from the use or misuse of this service.
+The creators and contributors are not responsible for consequences arising from use.
       </div>
       <button class="box-btn" onclick="acceptTerms()">Continue</button>
     </div>
   </div>
 
-  <!-- UPDATE POPUP -->
+  <!-- UPDATE -->
   <div class="overlay hidden" id="updateOverlay">
     <div class="box">
       <div class="box-title">Welcome to Version W.1.8</div>
       <div class="box-text" style="text-align:center">
         • Extras Page added
-        
       </div>
       <button class="box-btn" onclick="closeUpdate()">Continue</button>
     </div>
@@ -273,13 +180,12 @@ Under no circumstances shall the creators, maintainers, or contributors of the G
       </a>
       <a href="resources.html" class="top-link">Resources</a>
     </div>
-
     <a href="https://discord.gg/WrdQ6pfKnv" target="_blank" class="discord-btn">
       Discord
     </a>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="home">
     <img src="assets/img/controller.gif" class="title-gif" alt="Animated Banner">
     <h1 class="site-title">G.GUI</h1>
@@ -298,27 +204,84 @@ Under no circumstances shall the creators, maintainers, or contributors of the G
     <span>G.GUI Project • Version W.1.8</span>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    const VERSION = "W.1.8";
+  document.addEventListener("DOMContentLoaded", () => {
 
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    const cursor = document.getElementById("cursor");
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+
+    document.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
+    });
+
+    document.addEventListener("mousedown", () => {
+      cursor.style.transform = "translate(-50%, -50%) scale(0.7)";
+    });
+
+    document.addEventListener("mouseup", () => {
+      cursor.style.transform = "translate(-50%, -50%) scale(1)";
+    });
+
+    const spacing = 40;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let x = 0; x < canvas.width; x += spacing) {
+        for (let y = 0; y < canvas.height; y += spacing) {
+
+          const dx = mouse.x - x;
+          const dy = mouse.y - y;
+          const distance = Math.sqrt(dx*dx + dy*dy);
+
+          const maxDist = 200;
+          const intensity = Math.max(0, 1 - distance / maxDist);
+
+          const alpha = 0.08 + intensity * 0.7;
+
+          ctx.beginPath();
+          ctx.arc(x, y, 1.5 + intensity * 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0, 255, 255, ${alpha})`;
+          ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    const VERSION = "W.1.8";
     const startup = document.getElementById('startupScreen');
     const terms = document.getElementById('termsOverlay');
     const update = document.getElementById('updateOverlay');
 
-    // Startup animation (per tab)
     if (sessionStorage.getItem('startupShown')) {
       startup.style.display = 'none';
     } else {
       sessionStorage.setItem('startupShown', 'true');
     }
 
-    // Reset terms when version changes
     if (localStorage.getItem('acceptedVersion') !== VERSION) {
       localStorage.removeItem('termsAccepted');
       sessionStorage.removeItem('updateShown');
     }
 
-    // Gate flow
     window.addEventListener('load', () => {
       if (!localStorage.getItem('termsAccepted')) {
         terms.classList.remove('hidden');
@@ -327,22 +290,20 @@ Under no circumstances shall the creators, maintainers, or contributors of the G
       }
     });
 
-    function acceptTerms() {
+    window.acceptTerms = function() {
       localStorage.setItem('termsAccepted', 'true');
       localStorage.setItem('acceptedVersion', VERSION);
       terms.classList.add('hidden');
       update.classList.remove('hidden');
     }
 
-    function closeUpdate() {
+    window.closeUpdate = function() {
       sessionStorage.setItem('updateShown', 'true');
       update.classList.add('hidden');
     }
+
+  });
   </script>
 
 </body>
-
-<canvas id="bgCanvas"></canvas>
-<div class="custom-cursor" id="cursor"></div>
-
 </html>
