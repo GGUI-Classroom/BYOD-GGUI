@@ -16,10 +16,10 @@
       cursor: none;
     }
 
-    /* ===== BACKGROUND CANVAS ===== */
+    /* ===== CANVAS BACKGROUND ===== */
     #bgCanvas {
       position: fixed;
-      top: 60px; /* Below navbar */
+      top: 60px; /* below navbar */
       left: 0;
       width: 100%;
       height: calc(100vh - 60px);
@@ -140,18 +140,18 @@
 
 <body>
 
-  <canvas id="bgCanvas"></canvas>
-  <div class="custom-cursor" id="cursor"></div>
+<canvas id="bgCanvas"></canvas>
+<div class="custom-cursor" id="cursor"></div>
 
-  <div class="startup-screen" id="startupScreen">
-    <div class="startup-logo">G.GUI</div>
-    <div class="startup-sub">Loading the stuff</div>
-  </div>
+<div class="startup-screen" id="startupScreen">
+  <div class="startup-logo">G.GUI</div>
+  <div class="startup-sub">Loading the stuff</div>
+</div>
 
-  <div class="overlay hidden" id="termsOverlay">
-    <div class="box">
-      <div class="box-title">Terms of Use</div>
-      <div class="box-text">
+<div class="overlay hidden" id="termsOverlay">
+  <div class="box">
+    <div class="box-title">Terms of Use</div>
+    <div class="box-text">
 G.GUI Project  
 Last Updated: February 13, 2025
 
@@ -160,50 +160,50 @@ The G.GUI Project is an open-source project intended solely for collecting and o
 
 2. Limitation of Liability  
 The creators and contributors are not responsible for consequences arising from use.
-      </div>
-      <button class="box-btn" onclick="acceptTerms()">Continue</button>
     </div>
+    <button class="box-btn" onclick="acceptTerms()">Continue</button>
   </div>
+</div>
 
-  <div class="overlay hidden" id="updateOverlay">
-    <div class="box">
-      <div class="box-title">Welcome to Version W.1.8</div>
-      <div class="box-text" style="text-align:center">
-        • Extras Page added
-      </div>
-      <button class="box-btn" onclick="closeUpdate()">Continue</button>
+<div class="overlay hidden" id="updateOverlay">
+  <div class="box">
+    <div class="box-title">Welcome to Version W.1.8</div>
+    <div class="box-text" style="text-align:center">
+      • Extras Page added
     </div>
+    <button class="box-btn" onclick="closeUpdate()">Continue</button>
   </div>
+</div>
 
-  <header class="top-bar">
-    <div class="top-left">
-      <a href="index.html" class="controller-home">
-        <img src="assets/img/controller.svg" alt="Home">
-      </a>
-      <a href="resources.html" class="top-link">Resources</a>
-    </div>
-    <a href="https://discord.gg/WrdQ6pfKnv" target="_blank" class="discord-btn">
-      Discord
+<header class="top-bar">
+  <div class="top-left">
+    <a href="index.html" class="controller-home">
+      <img src="assets/img/controller.svg" alt="Home">
     </a>
-  </header>
+    <a href="resources.html" class="top-link">Resources</a>
+  </div>
+  <a href="https://discord.gg/WrdQ6pfKnv" target="_blank" class="discord-btn">
+    Discord
+  </a>
+</header>
 
-  <main class="home">
-    <img src="assets/img/controller.gif" class="title-gif" alt="Animated Banner">
-    <h1 class="site-title">G.GUI</h1>
-    <p class="site-subtitle">Gamers GUI</p>
+<main class="home">
+  <img src="assets/img/controller.gif" class="title-gif" alt="Animated Banner">
+  <h1 class="site-title">G.GUI</h1>
+  <p class="site-subtitle">Gamers GUI</p>
 
-    <div class="nav-grid">
-      <a href="multi.html" class="nav-card"><img src="assets/img/grid.svg"><span>Multi-Game Websites</span></a>
-      <a href="single.html" class="nav-card"><img src="assets/img/square.svg"><span>Single-Game Websites</span></a>
-      <a href="app.html" class="nav-card"><img src="assets/img/square.svg"><span>Apps</span></a>
-      <a href="offlinegame.html" class="nav-card"><img src="assets/img/grid.svg"><span>Offline Games</span></a>
-      <a href="extras.html" class="nav-card"><img src="assets/img/extras.png"><span>Extra Games</span></a>
-    </div>
-  </main>
+  <div class="nav-grid">
+    <a href="multi.html" class="nav-card"><img src="assets/img/grid.svg"><span>Multi-Game Websites</span></a>
+    <a href="single.html" class="nav-card"><img src="assets/img/square.svg"><span>Single-Game Websites</span></a>
+    <a href="app.html" class="nav-card"><img src="assets/img/square.svg"><span>Apps</span></a>
+    <a href="offlinegame.html" class="nav-card"><img src="assets/img/grid.svg"><span>Offline Games</span></a>
+    <a href="extras.html" class="nav-card"><img src="assets/img/extras.png"><span>Extra Games</span></a>
+  </div>
+</main>
 
-  <footer class="footer">
-    <span>G.GUI Project • Version W.1.8</span>
-  </footer>
+<footer class="footer">
+  <span>G.GUI Project • Version W.1.8</span>
+</footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -238,7 +238,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const spacing = 40;
-  const radius = 140;
+  const radius = 150;
+  const baseSize = 1.5;
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -250,18 +251,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const dy = mouse.y - y;
         const distance = Math.sqrt(dx*dx + dy*dy);
 
-        let size = 1.2;
-        let alpha = 0.05;
+        let size = baseSize;
 
         if (distance < radius) {
           const intensity = 1 - (distance / radius);
-          size += intensity * 3;
-          alpha += intensity * 0.7;
+          size = baseSize + intensity * 4;
         }
 
         ctx.beginPath();
         ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 255, 255, ${alpha})`;
+        ctx.fillStyle = "rgba(0, 255, 255, 0.12)";
         ctx.fill();
       }
     }
