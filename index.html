@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="assets/css/pages.css">
 
   <style>
+    :root {
+      --accent: #00ffe7;
+    }
+
     body {
       background: #000;
       cursor: none;
@@ -27,18 +31,18 @@
       pointer-events: none;
     }
 
-    /* ===== CUSTOM CURSOR ===== */
+    /* ===== CUSTOM CURSOR (MATCHING APP.HTML) ===== */
     .custom-cursor {
       position: fixed;
       width: 18px;
       height: 18px;
-      border: 2px solid #00ffff;
+      background: var(--accent);
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
       z-index: 10000;
-      box-shadow: 0 0 15px #00ffff, 0 0 30px rgba(0,255,255,0.5);
-      transition: transform 0.08s ease-out;
+      box-shadow: 0 0 12px var(--accent);
+      transition: width 0.2s, height 0.2s, background 0.2s, border 0.2s, transform 0.1s;
     }
 
     .startup-screen {
@@ -123,7 +127,7 @@
       color: #9ffcff;
       background: transparent;
       font-family: 'Orbitron', sans-serif;
-      cursor: pointer;
+      cursor: none;
       border-radius: 10px;
       box-shadow: 0 0 15px #00ffff;
       transition: 0.25s ease;
@@ -135,6 +139,11 @@
     }
 
     .hidden { display: none; }
+
+    /* Hide real cursor on interactive elements */
+    a, button, .nav-card {
+      cursor: none !important;
+    }
   </style>
 </head>
 
@@ -208,21 +217,29 @@ The creators and contributors are not responsible for consequences arising from 
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
   const cursor = document.getElementById("cursor");
+  const startupScreen = document.getElementById("startupScreen");
 
+  // --- STARTUP LOGIC: Only show once per session ---
+  if (sessionStorage.getItem('visited')) {
+    startupScreen.style.display = 'none';
+  } else {
+    sessionStorage.setItem('visited', 'true');
+  }
+
+  // --- CANVAS RESIZE ---
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 60;
   }
-
   window.addEventListener("resize", resize);
   resize();
 
   let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
 
+  // --- CURSOR CORE LOGIC ---
   document.addEventListener("mousemove", (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY - 60;
@@ -238,40 +255,57 @@ document.addEventListener("DOMContentLoaded", () => {
     cursor.style.transform = "translate(-50%, -50%) scale(1)";
   });
 
+  // --- CURSOR HOVER INTERACTIONS ---
+  function refreshCursorListeners() {
+    const interactive = document.querySelectorAll("a, button, .nav-card, .box-btn");
+    interactive.forEach(el => {
+      el.addEventListener("mouseenter", () => {
+        cursor.style.width = "28px";
+        cursor.style.height = "28px";
+        cursor.style.background = "rgba(0, 255, 231, 0.3)";
+        cursor.style.border = "1px solid var(--accent)";
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.style.width = "18px";
+        cursor.style.height = "18px";
+        cursor.style.background = "var(--accent)";
+        cursor.style.border = "none";
+      });
+    });
+  }
+  refreshCursorListeners();
+
+  // --- DOT BACKGROUND ANIMATION ---
   const spacing = 40;
   const radius = 150;
   const baseSize = 1.5;
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     for (let x = 0; x < canvas.width; x += spacing) {
       for (let y = 0; y < canvas.height; y += spacing) {
-
         const dx = mouse.x - x;
         const dy = mouse.y - y;
         const distance = Math.sqrt(dx*dx + dy*dy);
-
         let size = baseSize;
-
         if (distance < radius) {
           const intensity = 1 - (distance / radius);
           size = baseSize + intensity * 4;
         }
-
         ctx.beginPath();
         ctx.arc(x, y, size, 0, Math.PI * 2);
         ctx.fillStyle = "rgba(0, 255, 255, 0.12)";
         ctx.fill();
       }
     }
-
     requestAnimationFrame(draw);
   }
-
   draw();
-
 });
+
+// Modal Actions
+function acceptTerms() { document.getElementById('termsOverlay').classList.add('hidden'); }
+function closeUpdate() { document.getElementById('updateOverlay').classList.add('hidden'); }
 </script>
 
 </body>
