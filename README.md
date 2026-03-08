@@ -1,6 +1,179 @@
-## Quick Deploy
-Click one of the buttons below to **instantly clone** this repository to your own account and host it for free. This allows you to have your own private link that won't be blocked.
+# SchoolsOfEasternNevada.github.io
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com)
+Thank you for using G.GUI!
 
-[![Deploy with Vercel](https://vercel.com)](https://vercel.com)
+This repository hosts the website for SchoolsOfEasternNevada. The site can be hosted using GitHub Pages or deployed instantly using services like Vercel or Netlify.
+
+---
+
+## Table of Contents
+
+- Website
+- How To Use
+- Deployment (Vercel / Netlify)
+- Running Locally
+- Custom Domains With GitHub Pages
+
+---
+
+## Website
+
+Visit the website for this repository at:
+
+https://schoolsofeasternnevada.github.io
+
+This website contains tools and proxies that can access websites through the interface.
+
+Use these tools appropriately and follow your network or school rules.
+
+---
+
+## How To Use
+
+1. Open the website in your browser.
+2. Navigate through the homepage interface.
+3. Select the tool or option you want to use.
+4. Follow the instructions shown on the page.
+
+The interface is designed so users do not need to install anything.
+
+---
+
+## Deployment
+
+You can deploy this site instantly using modern hosting platforms.
+
+### Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+Steps:
+
+1. Click the button
+2. Sign into Vercel
+3. Import this repository
+4. Click Deploy
+
+Vercel will automatically build and host the website.
+
+---
+
+### Deploy to Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start)
+
+Steps:
+
+1. Click the button
+2. Sign into Netlify
+3. Select the repository
+4. Click Deploy
+
+Netlify will automatically host the website.
+
+---
+
+## Running Locally
+
+To run the website on your computer:
+
+Clone the repository
+
+git clone https://github.com/SchoolsOfEasternNevada/SchoolsOfEasternNevada.github.io
+
+Open the project folder
+
+cd SchoolsOfEasternNevada.github.io
+
+Open index.html in your browser.
+
+You can also start a local server.
+
+Example using Python:
+
+python -m http.server 8000
+
+Then visit:
+
+http://localhost:8000
+
+---
+
+## Custom Domains With GitHub Pages
+
+You can connect your own domain (for example example.com) to your GitHub Pages site.
+
+### Step 1 — Buy a Domain
+
+Purchase a domain from a registrar such as:
+
+- Namecheap
+- GoDaddy
+- Google Domains
+- Cloudflare
+
+Example domain:
+
+example.com
+
+---
+
+### Step 2 — Add the Domain to GitHub
+
+1. Open the repository on GitHub
+2. Click Settings
+3. Click Pages
+4. Find the Custom Domain section
+5. Enter your domain
+
+Example:
+
+www.example.com
+
+GitHub will create a file named:
+
+CNAME
+
+inside the repository.
+
+---
+
+### Step 3 — Configure DNS
+
+Now go to your domain provider and configure DNS.
+
+If you are using a root domain:
+
+Add these A records:
+
+185.199.108.153  
+185.199.109.153  
+185.199.110.153  
+185.199.111.153  
+
+If you are using a subdomain (recommended):
+
+Create a CNAME record:
+
+www → yourusername.github.io
+
+Example:
+
+www → schoolsofeasternnevada.github.io
+
+---
+
+### Step 4 — Wait for DNS
+
+DNS changes usually take between:
+
+5 minutes to 24 hours
+
+After propagation finishes your website will load from your custom domain.
+
+Example:
+
+https://www.example.com
+
+---
+
