@@ -9,7 +9,7 @@ This repository hosts the website for SchoolsOfEasternNevada. The site can be ho
 ## Table of Contents
 
 - [Website](#Website)
-- [Deployment (Vercel / Netlify)](#Deployment)
+- [Deployment](#Deployment)
 - [Running Locally](#RunLocally)
 - [Custom Domains With GitHub Pages](#GithubPages)
 ---
@@ -80,6 +80,7 @@ We can't list all of the hosting services here, so here is a general guide on ho
 3B. Fix any folder structure issues, and add any required files that hosting service requires
 -
 4B. Deploy the website - YOUR DONE
+-
 
 # RunLocally
 
