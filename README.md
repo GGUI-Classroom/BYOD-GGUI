@@ -10,8 +10,8 @@ This repository hosts the website for SchoolsOfEasternNevada. The site can be ho
 
 - [Website](#Website)
 - [Deployment (Vercel / Netlify)](#Deployment)
-- [Running Locally](#RunLocal)
-- [Custom Domains With GitHub Pages](##GithubPages)
+- [Running Locally](#RunLocally)
+- [Custom Domains With GitHub Pages](#GithubPages)
 ---
 
 ## Website
@@ -77,7 +77,7 @@ We can't list all of the hosting services here, so here is a general guide on ho
 3B. Fix any folder structure issues, and add any required files that hosting service requires
 4B. Deploy the website - YOUR DONE
 
-## RunLocally
+# RunLocally
 
 To run the website on your computer:
 
@@ -103,7 +103,7 @@ http://localhost:8000
 
 ---
 
-## GithubPages 
+# GithubPages 
 
 You can host G.GUI on github pages by:
 
