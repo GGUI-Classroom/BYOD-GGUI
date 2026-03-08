@@ -103,7 +103,7 @@ http://localhost:8000
 
 ---
 
-##GithubPages 
+## GithubPages 
 
 You can host G.GUI on github pages by:
 
